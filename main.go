@@ -18,6 +18,7 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	r.Get("/automate", handlers.Automate)
 	r.Get("/healthz", handlers.Health)
 
 	port := ":8080"
