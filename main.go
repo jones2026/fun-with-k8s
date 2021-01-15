@@ -20,6 +20,7 @@ func main() {
 
 	r.Get("/automate", handlers.Automate)
 	r.Get("/healthz", handlers.Health)
+	r.Get("/version", handlers.Version)
 
 	port := ":8080"
 	log.Println("Listening on port:", port)

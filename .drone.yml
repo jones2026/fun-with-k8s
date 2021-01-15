@@ -21,7 +21,10 @@ steps:
 - name: build
   image: golang:1.15
   commands:
-  - CGO_ENABLED=0 GOOS=linux go build -o main
+  - go build -ldflags "-X 'github.com/jones2026/fun-with-k8s/handlers.build=${DRONE_COMMIT}'" -o main
+  environment:
+    CGO_ENABLED: 0
+    GOOS: linux
 
 - name: docker_build
   image: plugins/docker
