@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 )
@@ -22,5 +23,8 @@ func Automate(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	enc := json.NewEncoder(w)
 	enc.SetIndent("", "  ")
-	enc.Encode(response)
+	err := enc.Encode(response)
+	if err != nil {
+		log.Println(err.Error())
+	}
 }
