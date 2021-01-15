@@ -1,0 +1,53 @@
+---
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: test
+  image: golang:1.15
+  commands:
+  - go test ./... -cover -v
+
+- name: lint
+  image: golangci/golangci-lint:v1.34.1
+  commands:
+  - golangci-lint run
+
+- name: build
+  image: golang:1.15
+  commands:
+  - CGO_ENABLED=0 GOOS=linux go build -o main
+
+- name: docker_build
+  image: plugins/docker
+  settings:
+    dry_run: true
+    repo: pr
+  when:
+    event:
+    - pull_request
+
+- name: docker_publish
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    password:
+      from_secret: docker_password
+    repo: ${DRONE_REPO,,}
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+    - tag
+
+trigger:
+  branch:
+  - master
+
+...
