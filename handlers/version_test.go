@@ -13,7 +13,7 @@ func TestVersionHandler(t *testing.T) {
 	}
 
 	expectedVersion := "123456789"
-	BuildVersion = expectedVersion
+	build = expectedVersion
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(Version)
 
