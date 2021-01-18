@@ -68,6 +68,7 @@ steps:
   commands:
   - echo $GCLOUD_SERVICE_KEY > $GOOGLE_APPLICATION_CREDENTIALS
   - cd terraform
+  - terraform init
   - terraform plan
   environment:
     GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
@@ -75,8 +76,8 @@ steps:
       from_secret: GCLOUD_SERVICE_KEY
 
 
-depends_on:
-  - verify
+# depends_on:
+#   - verify
 
 
 ...
