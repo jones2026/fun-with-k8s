@@ -70,6 +70,7 @@ steps:
   - cd terraform
   - terraform init
   - terraform plan
+  - terraform apply --auto-approve
   environment:
     GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
     GCLOUD_SERVICE_KEY:
