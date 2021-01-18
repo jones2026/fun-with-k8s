@@ -25,7 +25,7 @@ resource "kubernetes_deployment" "nginx" {
   metadata {
     name = "fun-with-k8s"
     labels = {
-      App = "FunWithK8s"
+      App = "fun-with-k8s"
     }
   }
 
@@ -33,19 +33,19 @@ resource "kubernetes_deployment" "nginx" {
     replicas = 2
     selector {
       match_labels = {
-        App = "FunWithK8s"
+        App = "fun-with-k8s"
       }
     }
     template {
       metadata {
         labels = {
-          App = "FunWithK8s"
+          App = "fun-with-k8s"
         }
       }
       spec {
         container {
           image = "jones2026/fun-with-k8s"
-          name  = "FunWithK8s"
+          name  = "fun-with-k8s"
 
           port {
             container_port = 8080
