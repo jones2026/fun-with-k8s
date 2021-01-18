@@ -7,7 +7,7 @@ data "google_client_config" "provider" {}
 
 resource "google_container_cluster" "primary" {
   name               = "my-gke-cluster"
-  location           = "us-central1"
+  location           = "us-central1c"
   initial_node_count = 1
   node_config {
     preemptible = true

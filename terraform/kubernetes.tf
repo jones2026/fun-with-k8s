@@ -65,5 +65,9 @@ resource "kubernetes_deployment" "nginx" {
       }
     }
   }
+
+  depends_on = [
+    google_container_cluster.primary
+  ]
 }
 
