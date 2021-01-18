@@ -23,9 +23,9 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "nginx" {
   metadata {
-    name = "scalable-nginx-example"
+    name = "fun-with-k8s"
     labels = {
-      App = "ScalableNginxExample"
+      App = "FunWithK8s"
     }
   }
 
@@ -33,22 +33,22 @@ resource "kubernetes_deployment" "nginx" {
     replicas = 2
     selector {
       match_labels = {
-        App = "ScalableNginxExample"
+        App = "FunWithK8s"
       }
     }
     template {
       metadata {
         labels = {
-          App = "ScalableNginxExample"
+          App = "FunWithK8s"
         }
       }
       spec {
         container {
-          image = "nginx:1.7.8"
-          name  = "example"
+          image = "jones2026/fun-with-k8s"
+          name  = "FunWithK8s"
 
           port {
-            container_port = 80
+            container_port = 8080
           }
 
           resources {
