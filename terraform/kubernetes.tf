@@ -70,7 +70,7 @@ resource "kubernetes_deployment" "api" {
   }
 
   depends_on = [
-    google_container_cluster.primary
+    google_container_node_pool.np
   ]
 }
 
