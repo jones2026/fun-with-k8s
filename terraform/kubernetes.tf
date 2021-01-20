@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "api" {
       }
       spec {
         container {
-          image = "jones2026/fun-with-k8s:${api_version}"
+          image = "jones2026/fun-with-k8s:${var.api_version}"
           name  = "fun-with-k8s"
 
           liveness_probe {
