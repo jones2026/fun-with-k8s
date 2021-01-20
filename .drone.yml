@@ -1,7 +1,7 @@
 ---
 kind: pipeline
-name: verify
 type: docker
+name: verify
 
 platform:
   os: linux
@@ -41,11 +41,11 @@ steps:
     password:
       from_secret: docker_password
     repo: ${DRONE_REPO,,}
-    username:
-      from_secret: docker_username
     tags:
     - latest
     - ${DRONE_COMMIT}
+    username:
+      from_secret: docker_username
   when:
     event:
     - push
@@ -56,8 +56,8 @@ trigger:
 
 ---
 kind: pipeline
-name: deploy
 type: docker
+name: deploy
 
 platform:
   os: linux
@@ -74,18 +74,23 @@ steps:
   - terraform plan
   - terraform apply --auto-approve
   environment:
-    GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
     GCLOUD_SERVICE_KEY:
       from_secret: GCLOUD_SERVICE_KEY
-      
+    GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
+
 - name: acceptance_test
   image: postman/newman
   commands:
   - source test.env
   - newman run fun-with-k8s.postman_collection.json --env-var base_url=$BASE_URL --env-var version=${DRONE_COMMIT}
 
-depends_on:
-  - verify
+trigger:
+  branch:
+  - master
+  event:
+  - push
 
+depends_on:
+- verify
 
 ...
