@@ -21,7 +21,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Automate endpoint returns expected message\", function () {\r",
+							"pm.test(\"Automate endpoint returns correct schema\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    const timestamp = new Date().getTime();\r",
 							"    pm.expect(jsonData.message).to.eql(\"Automate all the things!\");\r",
