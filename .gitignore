@@ -19,3 +19,4 @@ fun-with-k8s
 credentials.json
 *.terraform
 terraform.tfstate*
+test.env

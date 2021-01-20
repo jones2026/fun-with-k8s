@@ -38,16 +38,17 @@ steps:
 - name: docker_publish
   image: plugins/docker
   settings:
-    auto_tag: true
     password:
       from_secret: docker_password
     repo: ${DRONE_REPO,,}
     username:
       from_secret: docker_username
+    tags:
+    - latest
+    - ${DRONE_COMMIT}
   when:
     event:
     - push
-    - tag
 
 trigger:
   branch:
@@ -68,6 +69,7 @@ steps:
   commands:
   - echo $GCLOUD_SERVICE_KEY > $GOOGLE_APPLICATION_CREDENTIALS
   - cd terraform
+  - export TF_VAR_api_version=${DRONE_COMMIT}
   - terraform init
   - terraform plan
   - terraform apply --auto-approve
@@ -75,10 +77,16 @@ steps:
     GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
     GCLOUD_SERVICE_KEY:
       from_secret: GCLOUD_SERVICE_KEY
+      
+- name: acceptance_test
+  image: postman/newman
+  commands:
+  - source test.env
+  - env | grep BASE_URL
+  - newman run fun-with-k8s.postman_collection.json --env-var base_url=$BASE_URL --env-var version=${DRONE_COMMIT}
 
-
-# depends_on:
-#   - verify
+depends_on:
+  - verify
 
 
 ...

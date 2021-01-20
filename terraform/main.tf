@@ -14,3 +14,8 @@ terraform {
     }
   }
 }
+
+variable "api_version" {
+  default = "latest"
+  description = "The version of the api image to deploy"
+}
