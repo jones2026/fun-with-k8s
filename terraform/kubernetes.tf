@@ -1,6 +1,4 @@
 provider "kubernetes" {
-  load_config_file = false
-
   host  = "https://${google_container_cluster.primary.endpoint}"
   token = data.google_client_config.provider.access_token
   cluster_ca_certificate = base64decode(
@@ -55,12 +53,12 @@ resource "kubernetes_deployment" "api" {
           }
 
           resources {
-            limits {
+            limits  = {
               cpu    = "0.5"
               memory = "512Mi"
             }
-            requests {
-              cpu    = "250m"
+            requests  = {
+              cpu    = "125m"
               memory = "50Mi"
             }
           }
@@ -97,7 +95,7 @@ resource "kubernetes_service" "api" {
 }
 
 output "api_url" {
-  value = "http://${kubernetes_service.api.load_balancer_ingress[0].ip}/automate"
+  value = "http://${kubernetes_service.api.status[0].load_balancer[0].ingress[0].ip}/automate"
 }
 
 resource "null_resource" "env_file" {
@@ -105,6 +103,6 @@ resource "null_resource" "env_file" {
     timestamp = timestamp()
   }
   provisioner "local-exec" {
-    command = "echo 'export BASE_URL=${kubernetes_service.api.load_balancer_ingress[0].ip}' > ../test.env"
+    command = "echo 'export BASE_URL=${kubernetes_service.api.status[0].load_balancer[0].ingress[0].ip}' > ../test.env"
   }
 }
