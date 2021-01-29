@@ -7,7 +7,7 @@ import (
 )
 
 func TestVersionHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/version", nil)
+	req, err := http.NewRequest("GET", "/api/v1/version", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,7 +33,7 @@ func TestVersionHandler(t *testing.T) {
 }
 
 func TestDefaultVersionHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/version", nil)
+	req, err := http.NewRequest("GET", "/api/v1/version", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

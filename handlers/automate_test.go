@@ -8,7 +8,7 @@ import (
 )
 
 func TestAutomateHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/automate", nil)
+	req, err := http.NewRequest("GET", "/api/v1/automate", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

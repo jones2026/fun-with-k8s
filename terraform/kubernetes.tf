@@ -34,7 +34,7 @@ resource "kubernetes_deployment" "api" {
 
           liveness_probe {
             http_get {
-              path = "/healthz"
+              path = "/api/v1/healthz"
               port = 8080
             }
             period_seconds = 2
@@ -42,7 +42,7 @@ resource "kubernetes_deployment" "api" {
 
           readiness_probe {
             http_get {
-              path = "/healthz"
+              path = "/api/v1/healthz"
               port = 8080
             }
             period_seconds = 2
@@ -95,7 +95,7 @@ resource "kubernetes_service" "api" {
 }
 
 output "api_url" {
-  value = "http://${kubernetes_service.api.status[0].load_balancer[0].ingress[0].ip}/automate"
+  value = "http://${kubernetes_service.api.status[0].load_balancer[0].ingress[0].ip}/api/v1/automate"
 }
 
 resource "null_resource" "env_file" {
@@ -103,6 +103,6 @@ resource "null_resource" "env_file" {
     timestamp = timestamp()
   }
   provisioner "local-exec" {
-    command = "echo 'export BASE_URL=${kubernetes_service.api.status[0].load_balancer[0].ingress[0].ip}' > ../test.env"
+    command = "echo 'export BASE_URL=${kubernetes_service.api.status[0].load_balancer[0].ingress[0].ip}/api/v1' > ../test.env"
   }
 }

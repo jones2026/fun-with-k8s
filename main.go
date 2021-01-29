@@ -18,9 +18,11 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	r.Get("/automate", handlers.Automate)
-	r.Get("/healthz", handlers.Health)
-	r.Get("/version", handlers.Version)
+	r.Route("/api/v1", func(r chi.Router) {
+		r.Get("/automate", handlers.Automate)
+		r.Get("/healthz", handlers.Health)
+		r.Get("/version", handlers.Version)
+	})
 
 	port := ":8080"
 	log.Println("Listening on port:", port)

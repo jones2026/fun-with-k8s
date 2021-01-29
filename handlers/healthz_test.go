@@ -7,7 +7,7 @@ import (
 )
 
 func TestHealthCheckHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/healthz", nil)
+	req, err := http.NewRequest("GET", "/api/v1/healthz", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -164,7 +164,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "127.0.0.1"
+			"value": "127.0.0.1/api/v1"
 		},
 		{
 			"key": "version",
