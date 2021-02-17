@@ -9,7 +9,7 @@ platform:
 
 steps:
 - name: test
-  image: golang:1.15
+  image: golang:1.16
   commands:
   - go test ./... -cover -v
 
@@ -19,7 +19,7 @@ steps:
   - golangci-lint run
 
 - name: build
-  image: golang:1.15
+  image: golang:1.16
   commands:
   - go build -ldflags "-X 'github.com/jones2026/fun-with-k8s/handlers.build=${DRONE_COMMIT}'" -o main
   environment:
