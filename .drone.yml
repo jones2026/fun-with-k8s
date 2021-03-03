@@ -77,12 +77,6 @@ steps:
       from_secret: GCLOUD_SERVICE_KEY
     GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
 
-- name: acceptance_test
-  image: postman/newman
-  commands:
-  - source test.env
-  - newman run fun-with-k8s.postman_collection.json --env-var base_url=$BASE_URL --env-var version=${DRONE_COMMIT}
-
 trigger:
   branch:
   - main
