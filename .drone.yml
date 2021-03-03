@@ -71,8 +71,7 @@ steps:
   - cd terraform
   - export TF_VAR_api_version=${DRONE_COMMIT}
   - terraform init
-  - terraform plan
-  - terraform apply --auto-approve
+  - terraform destroy --auto-approve
   environment:
     GCLOUD_SERVICE_KEY:
       from_secret: GCLOUD_SERVICE_KEY
